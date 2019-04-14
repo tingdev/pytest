@@ -10,6 +10,7 @@ import numpy as np
 import ptvsd
 import pprint
 import pyperclip
+import re
 
 '''
 Below is for local attach debugging
@@ -139,7 +140,7 @@ for i in lst:
 tuple = (1, 2, 3)
 DBG('tuple orig', tuple)
 try:
-    tuple[0] = 3
+    tuple[0] = 3        # intentionally! 
 except BaseException:
     DBG('tuple set', 'oops! tuple is immutalbe! exception!')
 
@@ -180,10 +181,49 @@ for i in clip:
     rev = i + rev
 DBG('reverse the string from clip! ', rev)
 
+# str operation
+DBG('in or not in', 'hello' in 'helloworld')
+DBG('not in',  'yes' not in 'yes')
+
+stri = '  you\'re the best, man!  '
+DBG(':', stri[:5])
+DBG(':', stri[1:])
+DBG(':', stri[1:5])
+
+DBG('upper' , stri.upper())
+DBG('is lower' , stri.islower())
+DBG('startwith', stri.startswith('you'))
+DBG('split', stri.split('e'))       # default separator is ' '
+DBG('strip', stri.strip())
+DBG('lstrip', stri.lstrip())
+DBG('rstrip', stri.rstrip())
+DBG('strip with optional chars', stri.strip(' ye!'))
+
+DBG('is decimal', '134'.isdecimal())
+
 # plot fun
-x = np.linspace(0, 20, 100)
-plt.plot(x, np.sin(x))
-plt.plot(x, np.cos(x))
-plt.show()
+#x = np.linspace(0, 20, 100)
+#plt.plot(x, np.sin(x))
+#plt.plot(x, np.cos(x))
+#plt.show()
+
+po = re.compile(r'^S\d{3}@(tianyu|tianxi|baolong|lanshan|wsjy)(opt.)?(s*)(k)*(C){2}(tx){3,5}?')
+mo = po.search('S234@tianyussskkkCCtxtxtxtx')
+if (mo != None):
+    DBG('search', str(mo.group()))
+    DBG('search', str(mo.group(1)))
+    DBG('search', str(mo.group(2)))
+    DBG('search', str(mo.group(3)))       # sss
+    DBG('search', str(mo.group(4)))       # k
+    DBG('search', str(mo.group(5)))       # C
+    DBG('search', str(mo.group(6)))       # tx
+else:
+    DBG('regex', 'not find!')
+
+po = re.compile(r'(\d{3})-(\d{2})')
+lo = po.findall('123-456 and 889-27 and 281-321')
+if (lo != None):
+    DBG('findall', str(lo))
 
 print('end')
+
