@@ -207,7 +207,15 @@ DBG('is decimal', '134'.isdecimal())
 #plt.plot(x, np.cos(x))
 #plt.show()
 
-po = re.compile(r'^S\d{3}@(tianyu|tianxi|baolong|lanshan|wsjy)(opt.)?(s*)(k)*(C){2}(tx){3,5}?')
+po = re.compile(r'''
+    ^S\d{3}
+    @
+    (tianyu|tianxi|baolong|lanshan|wsjy)
+    (opt.)?
+    (s*)(k)*
+    (C){2}
+    (tx){3,5}?
+    ''', re.VERBOSE)
 mo = po.search('S234@tianyussskkkCCtxtxtxtx')
 if (mo != None):
     DBG('search', str(mo.group()))
@@ -224,6 +232,24 @@ po = re.compile(r'(\d{3})-(\d{2})')
 lo = po.findall('123-456 and 889-27 and 281-321')
 if (lo != None):
     DBG('findall', str(lo))
+
+po = re.compile(".*", re.DOTALL)
+str2op = 'hi\nman\nyou\'re great!'
+lo = po.findall(str2op)
+if (lo != None):
+    DBG('compile with arg', str(len(lo)) + str(lo))
+
+lo = po.search(str2op)
+if (lo != None):
+    DBG('search', lo.group())
+
+mo = re.match("(?P<key1>.*)\n(?P<key2>.*)\n", str2op)   # (?P<k>v) group matched will be in the dict {k:v}
+if (mo != None):
+    DBG('match', mo.groupdict())
+
+subpattern = re.compile(r'(Stupid|Mad|Sucks) (\w)\w*', re.IGNORECASE)
+newstr = subpattern.sub(r'\2***', 'Stupid man, how mad you are, sucks ho!') # matched will be replaced with group2***
+DBG('sub', newstr)
 
 print('end')
 
