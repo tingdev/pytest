@@ -237,7 +237,7 @@ po = re.compile(".*", re.DOTALL)
 str2op = 'hi\nman\nyou\'re great!'
 lo = po.findall(str2op)
 if (lo != None):
-    DBG('compile with arg', str(len(lo)) + str(lo))
+    DBG('compile with arg', str(len(lo)) + str(lo))     # NOTE! because '.*' also matches '', so there's an empty str in the result list!
 
 lo = po.search(str2op)
 if (lo != None):
@@ -250,6 +250,10 @@ if (mo != None):
 subpattern = re.compile(r'(Stupid|Mad|Sucks) (\w)\w*', re.IGNORECASE)
 newstr = subpattern.sub(r'\2***', 'Stupid man, how mad you are, sucks ho!') # matched will be replaced with group2***
 DBG('sub', newstr)
+
+DBG('findall', re.findall(r'(\dasd)', '1asd2asdp4asdsas'))
+DBG('findall', re.findall(r'(\dasd)+', '1asd2asdp4asdsas'))
+DBG('findall', re.findall(r'(\dasd)*', '1asd2asdp4asdsas'))     # NOTICE the last result empty ''
 
 print('end')
 
