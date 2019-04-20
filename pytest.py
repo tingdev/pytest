@@ -255,5 +255,27 @@ DBG('findall', re.findall(r'(\dasd)', '1asd2asdp4asdsas'))
 DBG('findall', re.findall(r'(\dasd)+', '1asd2asdp4asdsas'))
 DBG('findall', re.findall(r'(\dasd)*', '1asd2asdp4asdsas'))     # NOTICE the last result empty ''
 
+# file operation
+DBG('join', os.path.join('usr', 'local', 'lib'))
+DBG('cwd', os.getcwd())
+#os.chdir('c:\\')
+#DBG('cwd', os.getcwd())
+
+DBG('abspath', os.path.abspath('some_dir'))
+DBG('relpath', os.path.relpath('c:\\windows', 'c:\\h\\d'))
+os.makedirs('dir', 0o777, True)
+
+DBG('dirname', os.path.dirname(os.getcwd()))
+DBG('basename', os.path.basename(os.getcwd()))
+DBG('os.path.split', os.path.split(os.getcwd()))    # tuple with 2 parts
+DBG('str.split', os.getcwd().split(os.path.sep))           # list
+
+DBG('getsize', os.path.getsize(os.path.abspath('pytest.py')))
+DBG('listdir', os.listdir(os.getcwd()))
+
+DBG('exists', os.path.exists('c:\\windows'))
+DBG('isdir', os.path.isdir('c:\\windows'))
+DBG('isfile', os.path.isfile('c:\\windows'))
+
 print('end')
 
